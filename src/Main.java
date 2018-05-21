@@ -1,5 +1,3 @@
-package sample;
-
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -8,7 +6,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -51,7 +48,7 @@ public class Main extends Application {
             int maxColumn = (COLUMN_SIZE * (GAP_SIZE + 1)) - 1;
             while (line != null) {
                 if (minRow > maxRow || minColumn > maxColumn)
-                    throw new RuntimeException("Not enough space for whole file");
+                    throw new OutOfSpaceException("Not enough space for whole file");
 
                 for (int column = minColumn; line != null && column <= maxColumn; column++) {
                     square.getChildren().add(makeRectangle(line, minRow, column));
@@ -82,23 +79,19 @@ public class Main extends Application {
                 minColumn++;
                 maxColumn--;
             }
-        } catch (RuntimeException ex) {
+        } catch (OutOfSpaceException | IOException ex) {
             ex.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } finally {
             root.getChildren().add(square);
             primaryStage.show();
         }
     }
 
-    private static Rectangle makeRectangle(String line, int row, int column) {
+    private static Rectangle makeRectangle(String line, int row, int column) throws IOException {
         if (line.length() < 1)
-            throw new RuntimeException("Error: expected line with one character.");
+            throw new IOException("Error: expected line with one character.");
         if (!characterToColor.containsKey(line.charAt(0)))
-            throw new RuntimeException("Error: expected line with character from: " + characterToColor.keySet());
+            throw new IOException("Error: expected line with character from: " + characterToColor.keySet());
 
         Rectangle rectangle = new Rectangle(CELL_WIDTH * column, CELL_HEIGHT * row,
                 CELL_WIDTH, CELL_HEIGHT);
