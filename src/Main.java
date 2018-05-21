@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main extends Application {
-    private static final int COLUMN_SIZE = 7;
-    private static final int ROW_SIZE = 7;
+    private static final int COLUMN_SIZE = 14;
+    private static final int ROW_SIZE = 14;
     private static final int GAP_SIZE = 1;
 
     private static final double CELL_WIDTH = 30.0;
@@ -43,9 +43,9 @@ public class Main extends Application {
             String line = in.readLine();
 
             int minRow = 0;
-            int maxRow = (ROW_SIZE * (GAP_SIZE + 1))- 1;
+            int maxRow = ROW_SIZE - 1;
             int minColumn = minRow;
-            int maxColumn = (COLUMN_SIZE * (GAP_SIZE + 1)) - 1;
+            int maxColumn = COLUMN_SIZE - 1;
             while (line != null) {
                 if (minRow > maxRow || minColumn > maxColumn)
                     throw new OutOfSpaceException("Not enough space for whole file");
