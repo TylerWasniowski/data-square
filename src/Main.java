@@ -9,7 +9,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +35,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Group root = new Group();
         Scene scene = new Scene(root, 800, 600, Color.WHITE);
         primaryStage.setScene(scene);
@@ -83,6 +85,10 @@ public class Main extends Application {
             }
         } catch (RuntimeException ex) {
             ex.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         } finally {
             root.getChildren().add(square);
             primaryStage.show();
