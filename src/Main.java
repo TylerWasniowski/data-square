@@ -21,9 +21,6 @@ public class Main extends Application {
     private static final double CELL_WIDTH = 30.0;
     private static final double CELL_HEIGHT = 30.0;
 
-    private static final Color CELL_STROKE_COLOR = Color.BLACK;
-    private static final double CELL_STROKE_WIDTH = 0.5;
-
     private static final String FILENAME = "sample-input.txt";
 
     private static final Map<Character, Color> letterToColor = new HashMap<>();
@@ -40,7 +37,7 @@ public class Main extends Application {
         Group root = new Group();
         Scene scene = new Scene(root, 800, 600, Color.WHITE);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Data Square");
 
         Group square = new Group();
         try (BufferedReader in = new BufferedReader(new FileReader(FILENAME))) {
@@ -63,18 +60,20 @@ public class Main extends Application {
                     square.getChildren().add(makeRectangle(line, row, maxColumn));
                     line = in.readLine();
                 }
-                for (int column = maxColumn - 1; line != null && column >= minColumn + GAP_SIZE; column--) {
+
+                minRow += GAP_SIZE;
+                minColumn += GAP_SIZE;
+
+                for (int column = maxColumn - 1; line != null && column >= minColumn; column--) {
                     square.getChildren().add(makeRectangle(line, maxRow, column));
                     line = in.readLine();
                 }
-                for (int row = maxRow - 1; line != null && row > minRow + GAP_SIZE; row--) {
-                    square.getChildren().add(makeRectangle(line, row, minColumn + GAP_SIZE));
+                for (int row = maxRow - 1; line != null && row > minRow; row--) {
+                    square.getChildren().add(makeRectangle(line, row, minColumn));
                     line = in.readLine();
                 }
 
-                minRow += GAP_SIZE;
                 maxRow -= GAP_SIZE;
-                minColumn += GAP_SIZE;
                 maxColumn -= GAP_SIZE;
 
                 minRow++;
