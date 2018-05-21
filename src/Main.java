@@ -3,7 +3,6 @@ package sample;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -25,13 +24,13 @@ public class Main extends Application {
 
     private static final String FILENAME = "sample-input.txt";
 
-    private static final Map<Character, Color> letterToColor = new HashMap<>();
+    private static final Map<Character, Color> characterToColor = new HashMap<>();
     static {
-        letterToColor.put('A', Color.BLACK);
-        letterToColor.put('B', Color.BLUE);
-        letterToColor.put('C', Color.DARKGREEN);
-        letterToColor.put('D', Color.ORANGE);
-        letterToColor.put('E', Color.RED);
+        characterToColor.put('A', Color.BLACK);
+        characterToColor.put('B', Color.BLUE);
+        characterToColor.put('C', Color.DARKGREEN);
+        characterToColor.put('D', Color.ORANGE);
+        characterToColor.put('E', Color.RED);
     }
 
     @Override
@@ -98,13 +97,13 @@ public class Main extends Application {
     private static Rectangle makeRectangle(String line, int row, int column) {
         if (line.length() < 1)
             throw new RuntimeException("Error: expected line with one character.");
-        if (!letterToColor.containsKey(line.charAt(0)))
-            throw new RuntimeException("Error: expected line with letter from: " + letterToColor);
-        
+        if (!characterToColor.containsKey(line.charAt(0)))
+            throw new RuntimeException("Error: expected line with character from: " + characterToColor.keySet());
+
         Rectangle rectangle = new Rectangle(CELL_WIDTH * column, CELL_HEIGHT * row,
                 CELL_WIDTH, CELL_HEIGHT);
 
-        rectangle.setFill(letterToColor.get(line.charAt(0)));
+        rectangle.setFill(characterToColor.get(line.charAt(0)));
 
         return rectangle;
     }
