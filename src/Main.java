@@ -100,12 +100,11 @@ public class Main extends Application {
             throw new RuntimeException("Error: expected line with one character.");
         if (!letterToColor.containsKey(line.charAt(0)))
             throw new RuntimeException("Error: expected line with letter from: " + letterToColor);
-        Color color = letterToColor.get(line.charAt(0));
-
+        
         Rectangle rectangle = new Rectangle(CELL_WIDTH * column, CELL_HEIGHT * row,
                 CELL_WIDTH, CELL_HEIGHT);
 
-        rectangle.setFill(color);
+        rectangle.setFill(letterToColor.get(line.charAt(0)));
 
         return rectangle;
     }
